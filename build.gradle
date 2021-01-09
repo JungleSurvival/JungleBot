@@ -3,7 +3,7 @@ plugins {
     id'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
-mainClassName = 'pl.wolny.main'
+mainClassName = 'pl.wolny.JungleBot.main'
 
 version '1.0'
 
