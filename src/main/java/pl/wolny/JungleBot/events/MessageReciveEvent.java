@@ -16,24 +16,22 @@ import java.util.concurrent.TimeUnit;
 
 public class MessageReciveEvent extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+        Message msg = event.getMessage();
+        Guild guild = event.getGuild();
         if(!(event.getAuthor().isBot())){
             if (event.getMessage().getContentRaw().contains("XD") || (event.getMessage().getContentRaw().contains("xD"))) {
                 if (!event.getMessage().getAuthor().isBot()) {
-                    Message msg = event.getMessage();
-                    Guild guild = event.getGuild();
                     msg.addReaction(Objects.requireNonNull(guild.getEmoteById("781777890911584276"))).queue();
                     //event.getChannel().sendMessage("```" + msg.getEmotes().get(0).getId() + "```").queue();
                 }
             } else if (event.getMessage().getContentRaw().toLowerCase().contains("JungleSurvival".toLowerCase())) {
                 if (!event.getMessage().getAuthor().isBot()) {
-                    Message msg = event.getMessage();
-                    Guild guild = event.getGuild();
                     msg.addReaction(Objects.requireNonNull(guild.getEmoteById("780448896257490974"))).queue();
                 }
             } else if (event.getMessage().getContentRaw().toLowerCase().contains("ip")) {
-                List<String> msg = Arrays.asList(event.getMessage().getContentRaw().split(" "));
+                List<String> msgs = Arrays.asList(event.getMessage().getContentRaw().split(" "));
                 for(int i=0;i<event.getMessage().getContentRaw().split(" ").length;i++){
-                    if(msg.get(i).equalsIgnoreCase("ip")){
+                    if(msgs.get(i).equalsIgnoreCase("ip")){
                         event.getChannel().sendMessage("IP najlepszego serwera minecraft to **junglesurvival.pl** \uD83D\uDC9A").queue();
                         return;
                     }
