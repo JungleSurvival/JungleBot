@@ -80,7 +80,7 @@ public class MuteCmd extends ListenerAdapter {
                                         sukces_pv.addField("Powód:", reason, false);
                                         final Role role = event.getGuild().getRoleById("762568841087156244");
                                         assert role != null;
-                                        event.getGuild().addRoleToMember(event.getMessage().getMentionedMembers().get(0), role).reason("Muted by " + event.getAuthor().getName()).queue();
+                                        event.getGuild().addRoleToMember(Objects.requireNonNull(event.getGuild().getMemberById(punished.getId())), role).reason("Muted by " + event.getAuthor().getName()).queue();
                                         event.getAuthor().openPrivateChannel().queue((channel) ->
                                         {
                                             EmbedBuilder unmute = new EmbedBuilder();
