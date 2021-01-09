@@ -50,7 +50,7 @@ public class MessageReciveEvent extends ListenerAdapter {
                             System.out.print(event.getMessage().getMentionedUsersBag().size());
                             event.getChannel().sendMessage(event.getAuthor().getAsMention() + " Oznaczanie tego użytkownika jest nielegalne! Zostajesz wyciszony na 10 minut!").queue();
                             event.getMessage().addReaction(Objects.requireNonNull(event.getGuild().getEmoteById("786852460052086816"))).queue();
-                            Role role = event.getGuild().getRoleById("762568841087156244");
+                            final Role role = event.getGuild().getRoleById("762568841087156244");
                             event.getGuild().addRoleToMember(event.getAuthor().getId(), role).queue();
                             event.getAuthor().openPrivateChannel().queue((channel) ->
                             {

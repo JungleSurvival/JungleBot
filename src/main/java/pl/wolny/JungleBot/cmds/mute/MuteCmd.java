@@ -47,7 +47,7 @@ public class MuteCmd extends ListenerAdapter {
                                 sukces_pv.addField("Admin:", event.getAuthor().getName(), false);
                                 sukces_pv.addField("Czas:", msg[2], false);
                                 sukces_pv.addField("Powód:", reason, false);
-                                Role role = event.getGuild().getRoleById("762568841087156244");
+                                final Role role = event.getGuild().getRoleById("762568841087156244");
                                 assert role != null;
                                 event.getGuild().addRoleToMember(event.getMessage().getMentionedMembers().get(0), role).reason("Muted by " + event.getAuthor().getName()).queue();
                                 event.getAuthor().openPrivateChannel().queue((channel) ->
@@ -77,7 +77,7 @@ public class MuteCmd extends ListenerAdapter {
                                         sukces_pv.addField("Admin:", event.getAuthor().getName(), false);
                                         sukces_pv.addField("Czas:", msg[2], false);
                                         sukces_pv.addField("Powód:", reason, false);
-                                        Role role = event.getGuild().getRoleById("762568841087156244");
+                                        final Role role = event.getGuild().getRoleById("762568841087156244");
                                         assert role != null;
                                         event.getGuild().addRoleToMember(event.getMessage().getMentionedMembers().get(0), role).reason("Muted by " + event.getAuthor().getName()).queue();
                                         event.getAuthor().openPrivateChannel().queue((channel) ->
