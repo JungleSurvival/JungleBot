@@ -40,11 +40,6 @@ public class MessageReciveEvent extends ListenerAdapter {
                 event.getChannel().sendMessage("**Wersja serwera 1.16.4**").queue();
             } else if (event.getMessage().getMentionedUsers().size() > 0) {
                 for(int i=0;i<event.getMessage().getMentionedMembers().size();i++){
-                    if(Objects.requireNonNull(event.getGuild().getMemberById(event.getMessage().getMentionedUsers().get(i).getId())).getRoles().size()>0){
-                        if(Objects.requireNonNull(event.getGuild().getMemberById(event.getMessage().getMentionedUsers().get(i).getId())).getRoles().contains(event.getGuild().getRoleById("775326118680985621"))){
-                            System.out.print("true-dawdawd");
-                        }
-                    }
                     if (event.getMessage().getMentionedUsers().get(i).getId().equals("537260182225551360")) {
                         if (!event.getAuthor().isBot()) {
                             System.out.print(event.getMessage().getMentionedUsersBag().size());
