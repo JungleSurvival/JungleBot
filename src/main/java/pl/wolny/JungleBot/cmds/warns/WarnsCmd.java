@@ -26,7 +26,7 @@ public class WarnsCmd extends ListenerAdapter {
             String sql = "SELECT idwarna FROM `warns` WHERE idwarnowanego=?";
             PreparedStatement myStmt = myConn.prepareStatement(sql);
             myStmt.setString(1, id);
-            ResultSet rs = myStmt.executeQuery(sql);
+            ResultSet rs = myStmt.executeQuery();
             List <Integer> WarnIds = new ArrayList<>();
             while (rs.next()){
                 WarnIds.add(rs.getInt("idwarna"));
@@ -38,7 +38,7 @@ public class WarnsCmd extends ListenerAdapter {
                     String sql2 = "SELECT powod, nickadmina FROM `warns` WHERE idwarna=?" + " LIMIT 1";
                     PreparedStatement myStmt2 = myConn.prepareStatement(sql2);
                     myStmt2.setInt(1, WarnIds.get(i));
-                    ResultSet rs2 = myStmt2.executeQuery(sql2);
+                    ResultSet rs2 = myStmt2.executeQuery();
                     while (rs2.next()){
                         powod.add(rs2.getString("powod"));
                         nickadmina.add(rs2.getString("nickadmina"));
