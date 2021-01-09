@@ -76,10 +76,15 @@ public class WarnCmd extends ListenerAdapter {
                                     String reason = sb.toString().trim();
                                     System.out.print(reason);
                                     try {
-                                        myConn = DriverManager.getConnection(System.getenv("JDBC"), System.getenv("mysql_usr"), System.getenv("mysql_pass"));
-                                        Statement myStmt = myConn.createStatement();
-                                        String sql = "INSERT INTO `warns` (`idwarna`, `idwarnowanego`, `nickwarnownego`, `idadmina`, `nickadmina`, `powod`) VALUES (NULL, '" + warn_new.getId() + "', '" + warn_new.getUser().getName() + "', '" + event.getAuthor().getId() + "', '" + event.getAuthor().getName() +"', '" + reason + "')";
-                                        myStmt.executeUpdate(sql);
+                                        Connection myConn2 = DriverManager.getConnection(System.getenv("JDBC"), System.getenv("mysql_usr"), System.getenv("mysql_pass"));
+                                        String sql = "INSERT INTO `warns` (`idwarna`, `idwarnowanego`, `nickwarnownego`, `idadmina`, `nickadmina`, `powod`) VALUES (NULL, ?, ?, ?, ?, ?);";
+                                        PreparedStatement myStmt = myConn2.prepareStatement(sql);
+                                        myStmt.setString(1, warn_new.getId());
+                                        myStmt.setString(2, warn_new.getUser().getName());
+                                        myStmt.setString(3, event.getAuthor().getId());
+                                        myStmt.setString(4, event.getAuthor().getName());
+                                        myStmt.setString(5, reason);
+                                        myStmt.executeUpdate();
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                         EmbedBuilder err_1 = new EmbedBuilder();
