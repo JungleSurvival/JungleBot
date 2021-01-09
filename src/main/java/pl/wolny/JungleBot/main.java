@@ -31,19 +31,7 @@ public class main {
     }
 
     private static void DiscordBot() throws LoginException {
-        Dotenv dotenv = Dotenv.load();
-        if(dotenv.get("LOL-BOT").equalsIgnoreCase("true")){
-            JDA jda = JDABuilder.createDefault(dotenv.get("TOKEN"))
-                    .setMemberCachePolicy(MemberCachePolicy.ALL)
-                    .enableIntents(GatewayIntent.GUILD_MEMBERS)
-                    .enableIntents(GatewayIntent.DIRECT_MESSAGES)
-                    .enableIntents(GatewayIntent.GUILD_MESSAGES)
-                    .enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS)
-                    .enableIntents(GatewayIntent.GUILD_PRESENCES)
-                    .build();
-            System.out.println("LOLBOT: TRUE");
-        }else {
-            JDA jda = JDABuilder.createDefault(dotenv.get("TOKEN"))
+            JDA jda = JDABuilder.createDefault(System.getenv("TOKEN"))
                     .setMemberCachePolicy(MemberCachePolicy.ALL)
                     .enableIntents(GatewayIntent.GUILD_MEMBERS)
                     .enableIntents(GatewayIntent.DIRECT_MESSAGES)

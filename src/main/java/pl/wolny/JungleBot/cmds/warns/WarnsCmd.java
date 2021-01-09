@@ -21,9 +21,8 @@ public class WarnsCmd extends ListenerAdapter {
          EmbedBuilder builder = new EmbedBuilder();
          builder.setTitle("Warny " + nick);
          builder.setColor(Color.green);
-         Dotenv dotenv = Dotenv.load();
         try {
-            Connection myConn = DriverManager.getConnection(dotenv.get("JDBC"), dotenv.get("mysql_usr"), dotenv.get("mysql_pass"));
+            Connection myConn = DriverManager.getConnection(System.getenv("JDBC"), System.getenv("mysql_usr"), System.getenv("mysql_pass"));
             Statement myStmt = myConn.createStatement();
             String sql = "SELECT idwarna FROM `warns` WHERE idwarnowanego='" + id + "'";
             ResultSet rs = myStmt.executeQuery(sql);
