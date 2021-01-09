@@ -72,8 +72,7 @@ public class WarnCmd extends ListenerAdapter {
                                     String reason = sb.toString().trim();
                                     System.out.print(reason);
                                     try {
-                                        Dotenv dotenv = Dotenv.load();
-                                        myConn = DriverManager.getConnection(dotenv.get("JDBC"), dotenv.get("mysql_usr"), dotenv.get("mysql_pass"));
+                                        myConn = DriverManager.getConnection(System.getenv("JDBC"), System.getenv("mysql_usr"), System.getenv("mysql_pass"));
                                         Statement myStmt = myConn.createStatement();
                                         String sql = "INSERT INTO `warns` (`idwarna`, `idwarnowanego`, `nickwarnownego`, `idadmina`, `nickadmina`, `powod`) VALUES (NULL, '" + warn_new.getId() + "', '" + warn_new.getUser().getName() + "', '" + event.getAuthor().getId() + "', '" + event.getAuthor().getName() +"', '" + reason + "')";
                                         myStmt.executeUpdate(sql);
