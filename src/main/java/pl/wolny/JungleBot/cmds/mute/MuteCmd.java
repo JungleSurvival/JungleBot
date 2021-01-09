@@ -25,7 +25,7 @@ public class MuteCmd extends ListenerAdapter {
                     IsValid valid = new IsValid();
                     GetTimeunit TimeUnit = new GetTimeunit();
                     if (valid.ValidateTime(msg[2])) {
-                        if (TimeUnit.GetTimeunit_method(msg[2]).equals(java.util.concurrent.TimeUnit.MILLISECONDS)) {
+                        if (TimeUnit.GetTimeunit_method(msg[2]).equals(java.util.concurrent.TimeUnit.MILLISECONDS)) {1
                             StringBuilder sb = new StringBuilder();
                             for (int i = 3; i < msg.length; i++) {
                                 sb.append(msg[i]).append(" ");
@@ -109,6 +109,7 @@ public class MuteCmd extends ListenerAdapter {
                             usg.setColor(Color.red);
                             usg.addField("Kod błędu:", "Podano zły czas!", false);
                             event.getChannel().sendMessage(usg.build()).queue();
+                            System.out.println("1");
                         }
 
                     } else {
@@ -117,6 +118,7 @@ public class MuteCmd extends ListenerAdapter {
                         usg.setColor(Color.red);
                         usg.addField("Kod błędu:", "Podano zły czas!", false);
                         event.getChannel().sendMessage(usg.build()).queue();
+                        System.out.println("2");
                     }
                 }else {
                     EmbedBuilder usg = new EmbedBuilder();
