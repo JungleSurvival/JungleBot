@@ -55,6 +55,7 @@ public class MuteCmd extends ListenerAdapter {
                                     EmbedBuilder unmute = new EmbedBuilder();
                                     unmute.setTitle("Mute dobiegł końca");
                                     unmute.setColor(Color.GREEN);
+                                    channel.sendMessage(sukces_pv.build()).queue();
                                     channel.sendMessage(unmute.build()).queueAfter(time.GetTime_Method(msg[2]), TimeUnit.GetTimeunit_method(msg[2]));
                                 });
                                 event.getGuild().removeRoleFromMember(event.getMessage().getMentionedMembers().get(0), role).reason("Auto unmute").queueAfter(time.GetTime_Method(msg[2]), TimeUnit.GetTimeunit_method(msg[2]));
