@@ -28,7 +28,6 @@ public class main {
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         errorTypes errTypeMenager = new errorTypes();
         errTypeMenager.generateAllErrors();
-        System.out.println(errTypeMenager.getErrornames().toString());
         try {
             DiscordBot();
         } catch (LoginException e) {
