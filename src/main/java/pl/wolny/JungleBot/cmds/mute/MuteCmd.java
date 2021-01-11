@@ -4,12 +4,14 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import pl.wolny.JungleBot.TimeSystem.GetTime;
 import pl.wolny.JungleBot.TimeSystem.GetTimeunit;
 import pl.wolny.JungleBot.TimeSystem.IsValid;
+import pl.wolny.JungleBot.errorsgen.genErrorEmbled;
 
 import java.awt.*;
 import java.util.Objects;
@@ -18,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 public class MuteCmd extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] msg = event.getMessage().getContentRaw().split(" ");
+        genErrorEmbled errorEmbled = new genErrorEmbled();
+        TextChannel txtchannel = event.getChannel();
         if (msg[0].equalsIgnoreCase("?mute")) {
             if (Objects.requireNonNull(event.getGuild().getMemberById(event.getAuthor().getId())).hasPermission(Permission.MESSAGE_MANAGE)) {
                 if (msg.length > 3) {
@@ -90,50 +94,24 @@ public class MuteCmd extends ListenerAdapter {
                                         });
                                         event.getGuild().removeRoleFromMember(event.getMessage().getMentionedMembers().get(0), role).reason("Auto unmute").queueAfter(time.GetTime_Method(msg[2]), TimeUnit.GetTimeunit_method(msg[2]));
                                     }else {
-                                        EmbedBuilder perms = new EmbedBuilder();
-                                        perms.setTitle("Błąd");
-                                        perms.setColor(Color.red);
-                                        perms.addField("Kod błędu:", "Taki użytkownik nie istnieje", false);
-                                        event.getChannel().sendMessage(perms.build()).queue();
+                                        errorEmbled.genError(txtchannel, 1);
                                     }
                                 }else {
-                                    EmbedBuilder perms = new EmbedBuilder();
-                                    perms.setTitle("Błąd");
-                                    perms.setColor(Color.red);
-                                    perms.addField("Kod błędu:", "Taki użytkownik nie istnieje", false);
-                                    event.getChannel().sendMessage(perms.build()).queue();
+                                    errorEmbled.genError(txtchannel, 1);
                                 }
                             }
                         } else {
-                            EmbedBuilder usg = new EmbedBuilder();
-                            usg.setTitle("Błąd");
-                            usg.setColor(Color.red);
-                            usg.addField("Kod błędu:", "Podano zły czas!", false);
-                            event.getChannel().sendMessage(usg.build()).queue();
-                            System.out.println("1");
+                            errorEmbled.genError(txtchannel, 6);
                         }
 
                     } else {
-                        EmbedBuilder usg = new EmbedBuilder();
-                        usg.setTitle("Błąd");
-                        usg.setColor(Color.red);
-                        usg.addField("Kod błędu:", "Podano zły czas!", false);
-                        event.getChannel().sendMessage(usg.build()).queue();
-                        System.out.println("2");
+                        errorEmbled.genError(txtchannel, 6);
                     }
                 }else {
-                    EmbedBuilder usg = new EmbedBuilder();
-                    usg.setTitle("Błąd");
-                    usg.setColor(Color.red);
-                    usg.addField("Kod błędu:", "Złe użycie!", false);
-                    event.getChannel().sendMessage(usg.build()).queue();
+                    errorEmbled.genError(txtchannel, 2);
                 }
             }else {
-                    EmbedBuilder perms = new EmbedBuilder();
-                    perms.setTitle("Błąd");
-                    perms.setColor(Color.red);
-                    perms.addField("Kod błędu:", "Brak permisji", false);
-                    event.getChannel().sendMessage(perms.build()).queue();
+                errorEmbled.genError(txtchannel, 3);
                 }
         }
     }

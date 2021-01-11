@@ -14,7 +14,7 @@ import pl.wolny.JungleBot.cmds.ticket.CreateTicket;
 import pl.wolny.JungleBot.cmds.warns.WarnCmd;
 import pl.wolny.JungleBot.cmds.warns.WarnsCmd;
 import pl.wolny.JungleBot.events.*;
-import pl.wolny.JungleBot.cmds.AvatarCmd;
+import pl.wolny.JungleBot.errorsgen.*;
 
 import javax.security.auth.login.LoginException;
 
@@ -26,6 +26,8 @@ public class main {
         String className = c.getName();
         System.out.println("The fully-qualified name of the class is: " + className);
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        errorTypes errTypeMenager = new errorTypes();
+        errTypeMenager.generateAllErrors();
         try {
             DiscordBot();
         } catch (LoginException e) {

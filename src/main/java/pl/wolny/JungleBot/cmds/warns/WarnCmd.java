@@ -6,8 +6,10 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.IPermissionHolder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.PermissionOverride;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import pl.wolny.JungleBot.errorsgen.genErrorEmbled;
 
 import java.awt.*;
 import java.sql.*;
@@ -17,6 +19,8 @@ public class WarnCmd extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String[] msg = event.getMessage().getContentRaw().split(" ");
         if (msg[0].equalsIgnoreCase("?warn")) {
+            genErrorEmbled errorEmbled = new genErrorEmbled();
+            TextChannel channel = event.getChannel();
             Member user = event.getGuild().getMemberById(event.getAuthor().getId());
                 assert user != null;
                 if(user.hasPermission(Permission.MESSAGE_MANAGE)){
@@ -42,11 +46,7 @@ public class WarnCmd extends ListenerAdapter {
                                     myStmt.executeUpdate();
                                 } catch (SQLException throwables) {
                                     throwables.printStackTrace();
-                                    EmbedBuilder err_1 = new EmbedBuilder();
-                                    err_1.setTitle("Błąd");
-                                    err_1.setColor(Color.red);
-                                    err_1.addField("Kod błędu:", "Błąd wewnętrzny", false);
-                                    event.getChannel().sendMessage(err_1.build()).queue();
+                                    errorEmbled.genError(channel, -1);
                                     return;
                                 }
                                 EmbedBuilder suk = new EmbedBuilder();
@@ -57,11 +57,7 @@ public class WarnCmd extends ListenerAdapter {
                                 suk.addField("Powód:", reason, false);
                                 event.getChannel().sendMessage(suk.build()).queue();
                             }else {
-                                EmbedBuilder perms = new EmbedBuilder();
-                                perms.setTitle("Błąd");
-                                perms.setColor(Color.red);
-                                perms.addField("Kod błędu:", "Taki użytkownik nie istnieje", false);
-                                event.getChannel().sendMessage(perms.build()).queue();
+                                errorEmbled.genError(channel, 1);
                             }
 
                         }else {
@@ -87,11 +83,7 @@ public class WarnCmd extends ListenerAdapter {
                                         myStmt.executeUpdate();
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
-                                        EmbedBuilder err_1 = new EmbedBuilder();
-                                        err_1.setTitle("Błąd");
-                                        err_1.setColor(Color.red);
-                                        err_1.addField("Kod błędu:", "Błąd wewnętrzny", false);
-                                        event.getChannel().sendMessage(err_1.build()).queue();
+                                        errorEmbled.genError(channel, -1);
                                         return;
                                     }
                                     EmbedBuilder suk = new EmbedBuilder();
@@ -102,34 +94,18 @@ public class WarnCmd extends ListenerAdapter {
                                     suk.addField("Powód:", reason, false);
                                     event.getChannel().sendMessage(suk.build()).queue();
                                 }else {
-                                    EmbedBuilder perms = new EmbedBuilder();
-                                    perms.setTitle("Błąd");
-                                    perms.setColor(Color.red);
-                                    perms.addField("Kod błędu:", "Taki użytkownik nie istnieje", false);
-                                    event.getChannel().sendMessage(perms.build()).queue();
+                                    errorEmbled.genError(channel, 1);
                                 }
                             }else {
-                                EmbedBuilder perms = new EmbedBuilder();
-                                perms.setTitle("Błąd");
-                                perms.setColor(Color.red);
-                                perms.addField("Kod błędu:", "Taki użytkownik nie istnieje", false);
-                                event.getChannel().sendMessage(perms.build()).queue();
+                                errorEmbled.genError(channel, 1);
                             }
                         }
 
                     }else {
-                        EmbedBuilder usg = new EmbedBuilder();
-                        usg.setTitle("Błąd");
-                        usg.setColor(Color.red);
-                        usg.addField("Kod błędu:", "Złe użycie!", false);
-                        event.getChannel().sendMessage(usg.build()).queue();
+                        errorEmbled.genError(channel, 2);
                     }
                 }else {
-                    EmbedBuilder perms = new EmbedBuilder();
-                    perms.setTitle("Błąd");
-                    perms.setColor(Color.red);
-                    perms.addField("Kod błędu:", "Brak permisji", false);
-                    event.getChannel().sendMessage(perms.build()).queue();
+                    errorEmbled.genError(channel, 3);
                 }
         }
     }

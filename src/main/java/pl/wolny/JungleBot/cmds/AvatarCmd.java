@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import pl.wolny.JungleBot.errorsgen.genErrorEmbled;
 
 import java.awt.*;
 import java.nio.channels.Channel;
@@ -18,6 +19,8 @@ public class AvatarCmd extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         String msg = event.getMessage().getContentRaw();
         String[] args = event.getMessage().getContentRaw().split(" ");
+        genErrorEmbled errorEmbled = new genErrorEmbled();
+        TextChannel channel = event.getChannel();
         if(args.length>0){
             if(args[0].equals("?av") || (args[0].equals("?avatar"))){
                 if(args.length > 1){
@@ -29,18 +32,10 @@ public class AvatarCmd extends ListenerAdapter {
                             if (user != null) {
                                 GenerateAvatar(event.getChannel(), user.getUser());
                             }else {
-                                EmbedBuilder perms = new EmbedBuilder();
-                                perms.setTitle("Błąd");
-                                perms.setColor(Color.red);
-                                perms.addField("Kod błędu:", "Taki użytkownik nie istnieje", false);
-                                event.getChannel().sendMessage(perms.build()).queue();
+                                errorEmbled.genError(channel, 1);
                             }
                         }else {
-                            EmbedBuilder perms = new EmbedBuilder();
-                            perms.setTitle("Błąd");
-                            perms.setColor(Color.red);
-                            perms.addField("Kod błędu:", "Taki użytkownik nie istnieje", false);
-                            event.getChannel().sendMessage(perms.build()).queue();
+                            errorEmbled.genError(channel, 1);
                         }
                     }
                 }else {

@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import pl.wolny.JungleBot.errorsgen.genErrorEmbled;
 
 import java.awt.*;
 import java.sql.*;
@@ -21,6 +22,7 @@ public class WarnsCmd extends ListenerAdapter {
          EmbedBuilder builder = new EmbedBuilder();
          builder.setTitle("Warny " + nick);
          builder.setColor(Color.green);
+         genErrorEmbled errorEmbled = new genErrorEmbled();
         try {
             Connection myConn = DriverManager.getConnection(System.getenv("JDBC"), System.getenv("mysql_usr"), System.getenv("mysql_pass"));
             String sql = "SELECT idwarna FROM `warns` WHERE idwarnowanego=?";
@@ -50,22 +52,14 @@ public class WarnsCmd extends ListenerAdapter {
                     catch(InterruptedException ex)
                     {
                         Thread.currentThread().interrupt();
-                        EmbedBuilder err_1 = new EmbedBuilder();
-                        err_1.setTitle("Błąd");
-                        err_1.setColor(Color.red);
-                        err_1.addField("Kod błędu:", "Błąd wewnętrzny", false);
-                        channel.sendMessage(err_1.build()).queue();
+                        errorEmbled.genError(channel, -1);
                         return;
                     }
                     if(nickadmina.size() > 0 && powod.size() > 0){
                         String value = "Admin: " + nickadmina.get(0) + "\n" + "Powód: " + powod.get(0);
                         builder.addField("Warn o id " + WarnIds.get(i), value, false);
                     }else {
-                        EmbedBuilder err_1 = new EmbedBuilder();
-                        err_1.setTitle("Błąd");
-                        err_1.setColor(Color.red);
-                        err_1.addField("Kod błędu:", "Błąd wewnętrzny", false);
-                        channel.sendMessage(err_1.build()).queue();
+                        errorEmbled.genError(channel, -1);
                         return;
                     }
                 }
@@ -76,11 +70,7 @@ public class WarnsCmd extends ListenerAdapter {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            EmbedBuilder err_1 = new EmbedBuilder();
-            err_1.setTitle("Błąd");
-            err_1.setColor(Color.red);
-            err_1.addField("Kod błędu:", "Błąd wewnętrzny", false);
-            channel.sendMessage(err_1.build()).queue();
+            errorEmbled.genError(channel, -1);
         }
     }
     public static boolean isNumeric(String strNum) {
