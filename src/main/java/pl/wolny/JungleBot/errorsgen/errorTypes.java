@@ -10,7 +10,7 @@ public class errorTypes {
         return errornames;
     }
     public void addErrorName(int id, String error){
-        getErrornames().add(id, error);
+        errornames.add(id, error);
     }
     public void generateAllErrors(){
         addErrorName(0, "Błąd wewnętrzny");
