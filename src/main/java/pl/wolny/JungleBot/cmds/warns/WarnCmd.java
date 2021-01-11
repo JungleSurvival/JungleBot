@@ -83,7 +83,7 @@ public class WarnCmd extends ListenerAdapter {
                                         myStmt.executeUpdate();
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
-                                        errorEmbled.genError(channel, -1);
+                                        errorEmbled.genError(channel, 0);
                                         return;
                                     }
                                     EmbedBuilder suk = new EmbedBuilder();

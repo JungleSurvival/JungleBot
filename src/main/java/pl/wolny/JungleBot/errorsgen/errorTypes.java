@@ -13,7 +13,7 @@ public class errorTypes {
         getErrornames().add(id, error);
     }
     public void generateAllErrors(){
-        addErrorName(-1, "Błąd wewnętrzny");
+        addErrorName(0, "Błąd wewnętrzny");
         addErrorName(1, "Taki użytkownik nie istnieje");
         addErrorName(2, "Złe użycie");
         addErrorName(3, "Brak permisji");

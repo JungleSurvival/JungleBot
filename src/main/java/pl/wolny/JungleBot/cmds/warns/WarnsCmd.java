@@ -52,14 +52,14 @@ public class WarnsCmd extends ListenerAdapter {
                     catch(InterruptedException ex)
                     {
                         Thread.currentThread().interrupt();
-                        errorEmbled.genError(channel, -1);
+                        errorEmbled.genError(channel, 0);
                         return;
                     }
                     if(nickadmina.size() > 0 && powod.size() > 0){
                         String value = "Admin: " + nickadmina.get(0) + "\n" + "Powód: " + powod.get(0);
                         builder.addField("Warn o id " + WarnIds.get(i), value, false);
                     }else {
-                        errorEmbled.genError(channel, -1);
+                        errorEmbled.genError(channel, 0);
                         return;
                     }
                 }
@@ -70,7 +70,7 @@ public class WarnsCmd extends ListenerAdapter {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            errorEmbled.genError(channel, -1);
+            errorEmbled.genError(channel, 0);
         }
     }
     public static boolean isNumeric(String strNum) {
