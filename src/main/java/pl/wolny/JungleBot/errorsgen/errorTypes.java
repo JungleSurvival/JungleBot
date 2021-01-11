@@ -9,8 +9,13 @@ public class errorTypes {
     public List<String> getErrornames() {
         return errornames;
     }
+    public void setErrornames(List<String> list){
+        errornames = list;
+    }
     public void addErrorName(int id, String error){
+        List<String> errornames = getErrornames();
         errornames.add(id, error);
+        setErrornames(errornames);
     }
     public void generateAllErrors(){
         addErrorName(0, "Błąd wewnętrzny");
