@@ -12,6 +12,7 @@ public class genErrorEmbled {
         error.setTitle("Błąd");
         error.setColor(Color.red);
         System.out.println(errTypeMenager.errornames.toString());
+        errTypeMenager.generateAllErrors();
         if(!(errTypeMenager.getErrornames().get(id) == null)){
             error.addField("Kod błędu:", errTypeMenager.getErrornames().get(id), false);
 
